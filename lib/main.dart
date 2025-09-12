@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:water_metering/api/auth.dart';
+import 'package:water_metering/pages/Profile.dart';
 import 'package:water_metering/pages/auth/AuthWarpper.dart';
 import 'package:water_metering/theme/theme.dart';
 import 'config.dart';
@@ -113,20 +114,6 @@ class _MyAppState extends State<MyApp> {
             '/homePage': (context) => const DashboardPage(),
           },
           initialRoute: "/",
-          // onGenerateRoute: (settings) {
-          //   if (settings.name == "/dashboard") {
-          //     print("Going to dashboard page>??");
-          //     return MaterialPageRoute(
-          //       builder: (context) {
-          //         return BlocProvider<DashboardBloc>(
-          //             create: (context) => DashboardBloc(),
-          //             child: const DashboardPage()
-          //         );
-          //       },
-          //     );
-          //   }
-          //   return null;
-          // }
         ));
   }
 }
@@ -155,10 +142,42 @@ class _DashboardPageState extends State<DashboardPage> {
             ElevatedButton(
               onPressed: () {
                 LoginPostRequests.logout();
-                Navigator.pushReplacementNamed(context, '/login');
+                // Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text("Logout"),
             ),
+
+            ElevatedButton(
+              onPressed: () {
+                if (!LoginPostRequests.isLoggedIn) return;
+                final dashboardBloc = BlocProvider.of<DashboardBloc>(context);
+
+                // Simple push without animations to match the IndexedStack behavior
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    transitionDuration: Duration.zero, // No animation
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return BlocProvider.value(
+                        value: dashboardBloc,
+                        child: SafeArea(
+                          child: Scaffold(
+                            body: ProfileDrawer(),
+                          ),
+                        ),
+                      );
+                    },
+                    // No transition animations
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return child; // Return the child directly without animation
+                    },
+                  ),
+                );
+              },
+              child: const Text("Profile"),
+            ),
+
+
+
           ],
         ),
       ),
