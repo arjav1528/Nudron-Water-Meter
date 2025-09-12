@@ -15,20 +15,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:water_metering/api/auth.dart';
+import 'package:water_metering/api/data.dart';
 import 'package:water_metering/main.dart';
-import 'package:water_metering/utils/alert_message.dart';
-import 'package:water_metering/utils/excel_helpers.dart';
-import 'package:water_metering/view_model/custom_exception.dart';
-import 'package:water_metering/view_model/data_post_requests.dart';
-import 'package:water_metering/views/pages/BackgroundChart.dart';
-import 'package:water_metering/views/pages/DashboardPage2.dart';
-
-import '../../model/chartModels.dart';
-import '../../model/filterAndSummaryForProject.dart';
-import '../../model/userInfo.dart';
-
-import '../../theme/theme2.dart';
-import '../../view_model/loginPostRequests.dart';
+import 'package:water_metering/model/chartModels.dart';
+import 'package:water_metering/model/filterAndSummaryForProject.dart';
+import 'package:water_metering/model/userInfo.dart';
+import 'package:water_metering/utils/excel_helper.dart';
+import 'package:water_metering/utils/exception.dart';
+import 'package:water_metering/widgets/alerts/alert.dart';
 import 'dashboardEvent.dart';
 import 'dashboardState.dart';
 
@@ -684,7 +679,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     
     // Always use these fixed tabs when a project is selected
     List<String> standardTabs = ['project', 'trends', 'billing', 'activity'];
-    MainDashboardPage.bottomNavTabs = standardTabs;
+    //TODO ; implement bottom nav tab update after the page is made
+    // MainDashboardPage.bottomNavTabs = standardTabs;
     return standardTabs;
     
   }

@@ -2,14 +2,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:water_metering/utils/excel_helpers.dart';
-import '../theme/theme2.dart';
-import '../views/pages/DashboardPage2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:water_metering/api/auth.dart';
+import 'package:water_metering/pages/auth/AuthWarpper.dart';
+import 'package:water_metering/theme/theme.dart';
 import 'config.dart';
-import 'view_model/loginPostRequests.dart';
-import 'views/pages/LoginPage2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:water_metering/bloc/dashboardBloc/dashboardBloc.dart';
 
@@ -108,10 +106,10 @@ class _MyAppState extends State<MyApp> {
               if (LoginPostRequests.isLoggedIn) {
                 return const DashboardPage();
               } else {
-                return const LoginPage();
+                return const AuthWrapper();
               }
             },
-            '/login': (context) => const LoginPage(),
+            '/login': (context) => const AuthWrapper(),
             '/homePage': (context) => const DashboardPage(),
           },
           initialRoute: "/",
@@ -130,5 +128,40 @@ class _MyAppState extends State<MyApp> {
           //   return null;
           // }
         ));
+  }
+}
+
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text(
+              "Dashboard Page",
+              style: TextStyle(
+                color: Provider.of<ThemeNotifier>(context).currentTheme.basicAdvanceTextColor,
+                fontSize: 20.sp,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                LoginPostRequests.logout();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text("Logout"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

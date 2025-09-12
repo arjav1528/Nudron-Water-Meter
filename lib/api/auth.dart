@@ -9,13 +9,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:in_app_update/in_app_update.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:water_metering/bloc/changeNotifier.dart';
 import 'package:water_metering/bloc/dashboardBloc/dashboardBloc.dart';
-import '../changeNotifiers/NudronChangeNotifiers.dart';
+import 'package:water_metering/utils/biometric.dart';
+import 'package:water_metering/utils/device.dart';
+import 'package:water_metering/utils/exception.dart';
 import '../config.dart';
 import '../main.dart';
-import '../utils/biometric_helper.dart';
-import '../utils/getDeviceID.dart';
-import 'custom_exception.dart';
 
 class LoginPostRequests {
   static const String au1Url = 'https://api.nudron.com/prod/au1';

@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:water_metering/api/auth.dart';
+import 'package:water_metering/utils/device.dart';
+import 'package:water_metering/utils/exception.dart';
 
 import '../main.dart';
-import '../utils/getDeviceID.dart';
-import 'custom_exception.dart';
-import 'loginPostRequests.dart';
 
 class DataPostRequests {
   static const String portalUrl = 'https://api.nudron.com/prod/portal';
